@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 
-#define SOFTWARE_SERIAL
+#define HARDWARE_SERIAL
 
 SoftwareSerial mySerial(10, 11);  //RX, TX
 unsigned char led = 0;
@@ -8,23 +8,23 @@ unsigned char i = 0;
 
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
-#ifdef SOFTWARE_SERIAL
     mySerial.begin(115200);
-#else
+#ifdef HARDWARE_SERIAL
     Serial1.begin(115200);
 #endif
 }
 
 void loop() {
 
-#ifdef SOFTWARE_SERIAL
+    uint8_t rx;
+
     if (mySerial.available() > 0)
     {
-      mySerial.write(mySerial.read());
-#else
-    if (Serial1.available() > 0)
-    {
-      Serial1.write(Serial1.read());
+        rx = mySerial.read();
+        mySerial.write(rx);
+
+#ifdef HARDWARE_SERIAL
+        Serial1.write(rx);
 #endif
       i++;
     }

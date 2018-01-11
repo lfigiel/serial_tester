@@ -3,11 +3,11 @@ Arduino hardware/software serial port tester
 
 ## Usage
 ```
-python serial_tester.py <port>
+python2 serial_tester.py <port>
 ```
 
 for example:
 
 ```
-python serial_tester.py /dev/ttyUSB0
+python2 serial_tester.py /dev/ttyUSB0
 ```

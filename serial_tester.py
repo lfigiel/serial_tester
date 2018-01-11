@@ -3,6 +3,8 @@ import serial
 import sys
 import time
 
+delay = 0.01    #sec
+
 ser = serial.Serial()
 ser.baudrate = 115200
 ser.port = sys.argv[1]
@@ -12,22 +14,22 @@ if not ser.is_open:
 	print("Error: could not open serial port " + sys.argv[1])
 	quit()
 
-
-a = 0
+tx = 0
 i = 0
 while True:
-	ser.write(chr(a))
+	ser.write(chr(tx))
 
 	while ser.inWaiting() == 0:
-		time.sleep(0.01)
-	if ser.read(1) != chr(a):
-		print("Error: data corrupted")
+		time.sleep(delay)
+	rx=ser.read(1)
+	if rx != chr(tx):
+		print("Error: sent: %d, got: %d" %(tx, ord(rx)))
 		break
 	i = i + 1
-	print("%d: %d" %(i, a))
-	a = a + 1
-	if a > 255:
-		a = 0
+	print("%d: %d" %(i, tx))
+	tx = tx + 1
+	if tx > 255:
+		tx = 0
 ser.close()
 print("Done")
 

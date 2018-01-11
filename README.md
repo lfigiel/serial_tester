@@ -1,7 +1,7 @@
 # serial_tester
 Arduino hardware/software serial port tester
 
-##Usage
+## Usage
 ```
 python serial_tester.py <port>
 ```

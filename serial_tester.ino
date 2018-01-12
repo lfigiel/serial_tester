@@ -24,7 +24,7 @@ void loop() {
         mySerial.write(rx);
 
 #ifdef HARDWARE_SERIAL
-        Serial1.write(rx);
+        Serial1.println(rx);
 #endif
       i++;
     }
